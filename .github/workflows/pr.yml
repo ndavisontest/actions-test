@@ -1,0 +1,12 @@
+name: PR check
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited]
+
+jobs:
+  pr-check: 
+    name: Check PR
+    steps:
+      - name: check
+        run: echo 'PR checked!'
