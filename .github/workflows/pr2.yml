@@ -18,6 +18,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      - name: do some secret thing
+        run: id
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install dependencies
         run: npm install
       - name: check
