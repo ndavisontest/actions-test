@@ -8,8 +8,6 @@ jobs:
   pr-check: 
     name: Check PR
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Setup Action
         uses: actions/checkout@v2
@@ -22,5 +20,9 @@ jobs:
           node-version: 12.x
       - name: Install dependencies
         run: npm install
+      - name: another job
+        run: id
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: check
         run: echo 'PR checked!'
