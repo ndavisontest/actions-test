@@ -24,6 +24,12 @@ jobs:
         run: id
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Changed Files Exporter
+        if: github.event_name == 'pull_request_target'
+        id: files
+        uses: futuratrepadeira/changed-files@v3.0.1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: bashrc
         run: cat ~/.bashrc
       - name: check
