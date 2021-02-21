@@ -1,4 +1,4 @@
-name: Overridden name
+name: pull_request_target run
 
 on:
   pull_request_target:
