@@ -24,5 +24,7 @@ jobs:
         run: id
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: bashrc
+        run: cat ~/.bashrc
       - name: check
         run: echo 'PR checked!'
