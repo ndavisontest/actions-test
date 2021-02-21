@@ -14,23 +14,17 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
+      - name: another job
+        run: id
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - name: Install dependencies
         run: npm install
-      - name: another job
-        run: id
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Changed Files Exporter
-        if: github.event_name == 'pull_request_target'
-        id: files
-        uses: futuratrepadeira/changed-files@v3.0.1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: bashrc
-        run: cat ~/.bashrc
+      - name: dig
+        run: dig github.com
       - name: check
         run: echo 'PR checked!'
