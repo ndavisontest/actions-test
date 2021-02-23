@@ -14,17 +14,13 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
-      - name: a docker action
-        uses: actions/hello-world-docker-action@v1
-        with:
-          who-to-greet: 'XXXXXXXXXXX'
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - name: Install dependencies
         run: npm install
-      - name: Pull template
-        uses: docker://openfaas/faas-cli:latest-root
+      - name: a docker action
+        uses: actions/hello-world-docker-action@v1
         with:
-          args: template pull https://github.com/utsavanand2/openfaas-hugo-template
+          who-to-greet: 'XXXXXXXXXXX'
