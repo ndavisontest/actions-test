@@ -24,13 +24,3 @@ jobs:
           node-version: 12.x
       - name: Install dependencies
         run: npm install
-      - name: another job
-        run: id
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Changed Files Exporter
-        if: github.event_name == 'pull_request_target'
-        id: files
-        uses: futuratrepadeira/changed-files@v3.0.1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
