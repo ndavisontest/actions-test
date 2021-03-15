@@ -1,35 +1,25 @@
-name: Format python code
+name: Markdown Link Check
 
 on:
   pull_request_target:
-    paths-ignore:
-      - "assets/**"
-      - ".circleci/**"
-      - "docker/**"
-      - "docs/**"
-      - "conda.recipe"
-      - "**.md"
+    paths:
+    - '**.md'
+    - '!.github/**'
+    - '!translations/**'
+  workflow_dispatch:
 
 jobs:
-  code-style:
+  link-check:
     runs-on: ubuntu-latest
     steps:
-      - if: github.event_name == 'pull_request_target'
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-      - uses: actions/setup-python@v2
-        with:
-          python-version: "3.8"
-      - run: |
-          python -m pip install autopep8 "black==19.10b0" "isort==5.7.0"
-          autopep8 --recursive --in-place --aggressive --aggressive .
-          black .
-          isort --profile black .
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "autopep8 fix"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Setup Action
+      uses: actions/checkout@v2
+      with:
+        ref: ${{github.event.pull_request.head.ref}}
+        repository: ${{github.event.pull_request.head.repo.full_name}}
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm install -g markdown-link-check
