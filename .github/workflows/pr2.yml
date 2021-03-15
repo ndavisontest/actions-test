@@ -1,8 +1,6 @@
 name: pull_request_target run
 
-on:
-  pull_request_target:
-    types: [opened, synchronize, edited]
+on: push
 
 jobs:
   pr-check: 
