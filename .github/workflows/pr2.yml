@@ -1,18 +1,25 @@
-name: 🔂 Surge PR Preview
+name: E2E
 
-on: [pull_request_target]
+on: [push, pull_request_target]
 
 jobs:
-  preview:
-    runs-on: ubuntu-latest
+  cypress-matrix:
+    runs-on: ubuntu-18.04
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code (pull_request)
+        if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
+        uses: actions/checkout@v2
         with:
-          ref: refs/pull/${{ github.event.pull_request.number }}/merge
-      - uses: afc163/surge-preview@v1
+          ref: 'refs/pull/${{ github.event.number }}/merge'
+      - name: Setup Python
+        uses: actions/setup-python@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          build: |
-            yarn
-            yarn run site
-          dist: dist
+          python-version: "3.7"
+      - name: Install npm dependencies
+        uses: apache-superset/cached-dependencies@v1.1
+        with:
+          run: |
+            npm-install
+      
