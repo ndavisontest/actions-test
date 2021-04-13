@@ -1,25 +1,15 @@
-name: E2E
+name: test
 
-on: [push, pull_request_target]
+on: [pull_request_target]
 
 jobs:
-  cypress-matrix:
+  test:
     runs-on: ubuntu-18.04
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Checkout code (pull_request)
-        if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
+      - name: Checkout code
         uses: actions/checkout@v2
         with:
           ref: 'refs/pull/${{ github.event.number }}/merge'
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.7"
-      - name: Install npm dependencies
-        uses: apache-superset/cached-dependencies@v1.1
-        with:
-          run: |
-            npm-install
-      
+          submodules: true
+      - name: Run tests
+        run: ./bla.sh
