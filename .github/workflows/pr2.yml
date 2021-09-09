@@ -1,21 +1,23 @@
-name: test
-
-on: [pull_request_target]
+name: Continuous Integration
+on: pull_request_target
 
 jobs:
   test:
-    runs-on: ubuntu-18.04
+    name: Build & Test
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Checkout source code
         uses: actions/checkout@v2
         with:
-          ref: 'refs/pull/${{ github.event.number }}/merge'
-          submodules: true
-      - name: Setup Node
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: '12'
       - name: Install dependencies
-        run: npm install
-      - name: Run tests
-        run: ./bla.sh
+        run: npm ci
