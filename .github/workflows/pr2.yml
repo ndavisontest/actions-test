@@ -23,3 +23,5 @@ jobs:
         run: npm ci
       - name: bla
         run: ./bla.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
