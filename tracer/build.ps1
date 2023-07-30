@@ -4,4 +4,4 @@ Param(
     [string[]]$BuildArguments
 )
 
-Write-Output "PowerShell $($PSVersionTable.PSEdition) version $($PSVersionTable.PSVersion)"
+Write-Output "Hello there"
