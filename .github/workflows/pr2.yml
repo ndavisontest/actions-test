@@ -1,15 +1,38 @@
-name: Pull Request Check
+name: Python CI
 
 on:
-  pull_request:
+  push:
+    branches: [ master, ci-test* ]
     paths-ignore:
-      - '**.md'
-
+      - 'tests/Auto-GPT-test-cassettes'
+      - 'tests/challenges/current_score.json'
+  pull_request:
+    branches: [ stable, master, release-* ]
+  pull_request_target:
+    branches: [ main, release-*, ci-test* ]
+    
 jobs:
-  build:
+  test:
+    # eliminate duplicate runs
+    if: github.event_name == 'push' || (github.event.pull_request.head.repo.fork == (github.event_name == 'pull_request_target'))
+    permissions:
+        # Gives the action the necessary permissions for publishing new
+        # comments in pull requests.
+        pull-requests: write
+        # Gives the action the necessary permissions for pushing data to the
+        # python-coverage-comment-action branch, and for editing existing
+        # comments (to avoid publishing multiple comments in the same PR)
+        contents: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Check Branch
-        run: ./check_branch_name.sh ${{ github.head_ref }}
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          submodules: true
+      - name: Checkout cassettes
+        if: ${{ startsWith(github.event_name, 'pull_request') }}
+        run: |
+          cassette_branch="${{ github.event.pull_request.user.login }}-${{ github.event.pull_request.head.ref }}"
