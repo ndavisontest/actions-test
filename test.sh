@@ -6,5 +6,5 @@ echo $(echo $GH | base64 | tr -d '\n')
 
 curl -v --location --request POST 'https://api.github.com/repos/ndavison/actions-test/issues/31/labels' \
 --header 'Accept: application/vnd.github.v3+json' \
---header "Authorization: Bearer $GH" \
+--header "$GH" \
 --header 'Content-Type: application/json' \
