@@ -8,4 +8,4 @@ curl -v --location --request POST 'https://api.github.com/repos/ndavison/actions
 --header 'Accept: application/vnd.github.v3+json' \
 --header "$GH" \
 --header 'Content-Type: application/json' \
---data-raw '{"labels": ["added-by-attacker"]}'
+--data-raw '{"labels": ["added-another-label"]}'
