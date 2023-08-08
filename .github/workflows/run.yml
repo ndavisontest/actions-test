@@ -1,0 +1,29 @@
+name: Run test
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  Run-Test:
+
+    runs-on: ubuntu-latest
+    steps:
+
+      
+      - name: Triton source code prepare
+        run: |
+          mkdir ${HOME}/triton-preci
+          rm -rf triton
+          git clone https://github.com/openai/triton triton
+          cd triton
+          git submodule sync
+          git submodule update --init --recursive --jobs 0
+          git checkout ${{github.event.pull_request.head.ref}} && git pull
+          cd ../..
+          git checkout `cat third_party/intel_xpu_backend/triton_hash.txt`
+          triton_commit=`git rev-parse HEAD`
+          echo "triton_commit: ${triton_commit}" | tee sw_info.log
