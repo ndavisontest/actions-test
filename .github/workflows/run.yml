@@ -20,6 +20,4 @@ jobs:
           rm -rf triton
           git clone https://github.com/openai/triton triton
           cd triton
-          git submodule sync
-          git submodule update --init --recursive --jobs 0
           git checkout ${{github.event.pull_request.head.ref}} && git pull
