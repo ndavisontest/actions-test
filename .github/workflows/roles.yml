@@ -13,9 +13,10 @@ jobs:
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-region: us-west-2
-          role-to-assume: arn:aws:iam::370957321024:role/GitHub-CI-DDBEC-Dafny-Role-us-west-2
-          role-session-name: DDBEC-Dafny-Java-Tests
+          role-to-assume: arn:aws:iam::921473456820:role/OIDCGithubProviderRoleRegistry
+          role-session-name: ghactionssession
+          aws-region: us-east-2
+          audience: sts.amazonaws.com
       - name: STS GetCallerIdentity
         run: |
           aws sts get-caller-identity
