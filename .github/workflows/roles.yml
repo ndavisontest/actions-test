@@ -13,9 +13,9 @@ jobs:
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          audience: https://github.com/launchdarkly
-          role-to-assume: arn:aws:iam::554582317989:role/github-launchpad-ui
-          aws-region: us-east-1
+          aws-region: eu-west-1
+          role-to-assume: arn:aws:iam::042947190491:role/proof-generator-api-GithubActionsRole
+          role-session-name: proof-generatorGithubActionsSession
       - name: STS GetCallerIdentity
         run: |
           aws sts get-caller-identity
