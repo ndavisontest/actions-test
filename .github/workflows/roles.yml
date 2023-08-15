@@ -13,10 +13,8 @@ jobs:
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::921473456820:role/OIDCGithubProviderRoleRegistry
-          role-session-name: ghactionssession
-          aws-region: us-east-2
-          audience: sts.amazonaws.com
+          role-to-assume: arn:aws:iam::307493967395:role/tf-eks-discovery-ci-cluster-kubernetes-service-access-role
+          aws-region: us-west-2
       - name: STS GetCallerIdentity
         run: |
           aws sts get-caller-identity
