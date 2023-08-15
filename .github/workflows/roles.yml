@@ -14,8 +14,8 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: eu-west-1
-          role-to-assume: arn:aws:iam::042947190491:role/api-polygon-tokens-GithubActionsRole
-          role-session-name: GithubActionsSession
+          role-to-assume: arn:aws:iam::042947190491:role/zkevm-GithubActionsRole
+          role-session-name: GitHubActionsDeployment
       - name: STS GetCallerIdentity
         run: |
           aws sts get-caller-identity
