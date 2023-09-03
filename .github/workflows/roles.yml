@@ -1,0 +1,20 @@
+name: Example workflow
+on:
+  workflow_dispatch   
+permissions:
+      id-token: write
+      contents: read
+jobs:
+  off_the_cliff_we_go:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-east-2
+          role-to-assume: arn:aws:iam::018789649883:role/caos-pipeline-oidc-otel-releases
+      - name: STS GetCallerIdentity
+        run: |
+          aws sts get-caller-identity
