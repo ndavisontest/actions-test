@@ -1,15 +1,8 @@
 name: test
 
 on:
-  pull_request_target:
-    types:
-      - opened
-    branches:
-      - $default-branch
-
-concurrency:
-  group: ${{github.workflow}}-${{github.ref}}
-  cancel-in-progress: true
+  pull_request:
+    types: [ closed ]
 
 jobs:
   comment_on_lint_failure:
