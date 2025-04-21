@@ -6,7 +6,7 @@ test:
 		-H "X-GitHub-Api-Version: 2022-11-28" \
 		-H "Accept: application/vnd.github.v3+json" \
 		-H "Content-Type: application/json" \
-		https://api.github.com/repos/ndavisontest/actions-test/pulls/2/labels
+		https://api.github.com/repos/ndavisontest/actions-test/issues/2/labels
 
 .PHONY: clean test
 
