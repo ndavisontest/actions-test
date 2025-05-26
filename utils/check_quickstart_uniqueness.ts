@@ -1,4 +1,5 @@
 const main = (): void => {
+  console.log("Hello");
   return true;  
 };
 
