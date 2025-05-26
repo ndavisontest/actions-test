@@ -1,19 +1,1 @@
-name: E2E Performance Tests (Desktop)
 
-on:
-  pull_request:
-    branches: [ main ]
-    types:
-        - labeled
-
-jobs:
-  build:
-    if: ${{ github.event.label.name == 'Run E2E Performance Tests' }}
-    runs-on: ubuntu-latest
-
-    steps:
-
-    - uses: actions/checkout@v2
-
-    - name: Upload report to S3
-      run: echo s3://xxx/${{ github.head_ref }}-${{ github.sha }}.json
