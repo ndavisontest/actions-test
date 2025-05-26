@@ -4,7 +4,7 @@
   "author": "XXX",
   "license": "Apache-2.0",
   "scripts": {
-    "validate-quickstart-ids": "ts-node validate-quickstart-ids.ts"
+    "check-quickstart-uniqueness": "ts-node check_quickstart_uniqueness.ts"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
