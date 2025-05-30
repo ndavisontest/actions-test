@@ -15,3 +15,4 @@ jobs:
       - name: Triton source code prepare
         run: |
           echo ${{ github.event.pull_request.author_association }}
+          echo ${{ github.event_name }}
