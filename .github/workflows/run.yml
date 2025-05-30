@@ -14,8 +14,4 @@ jobs:
       
       - name: Triton source code prepare
         run: |
-          mkdir ${HOME}/triton-preci
-          rm -rf triton
-          git clone https://github.com/openai/triton triton
-          cd triton
-          git checkout ${{github.event.pull_request.head.ref}} && git pull
+          echo ${{ github.event.pull_request.author_association }}
