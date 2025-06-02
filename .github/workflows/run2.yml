@@ -1,0 +1,32 @@
+name: Run test 2
+
+on:
+  pull_request_target:
+
+jobs:
+
+  Run-Test:
+
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - name: xxx
+        run: |
+          echo ${{ github.event.pull_request.author_association }}
+          echo ${{ github.event_name }}
+          echo ${{ github.repository }}
+          echo ${{ github.event.pull_request.base.ref }}
+          echo ${{ github.event.pull_request.head.ref }}
+      - name: jjkjk
+        run: |
+          cat package.json
+          npm install
+        
