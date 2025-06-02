@@ -17,3 +17,4 @@ jobs:
           echo ${{ github.event.pull_request.author_association }}
           echo ${{ github.event_name }}
           echo ${{ github.repository }}
+          echo ${{ github.event.pull_request.base.ref }}
