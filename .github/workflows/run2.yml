@@ -26,5 +26,7 @@ jobs:
           echo ${{ github.event.pull_request.base.ref }}
           echo ${{ github.event.pull_request.head.ref }}
       - name: jjkjk
-        run: npm install
+        run: |
+          cat package.json
+          npm install
         
