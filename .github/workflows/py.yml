@@ -1,8 +1,6 @@
 name: Py
 on:
   pull_request_target:
-    paths:
-      - "**.py"
     types: [opened, synchronize, reopened, labeled, unlabeled]
 
 defaults:
