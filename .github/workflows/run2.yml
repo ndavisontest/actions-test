@@ -20,6 +20,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: xxx
         run: |
+          echo ${{ github.event.pull_request.user.login }}
           echo ${{ github.event.pull_request.author_association }}
           echo ${{ github.event_name }}
           echo ${{ github.repository }}
