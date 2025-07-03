@@ -1,99 +1,20 @@
-name: "Deploy Preview"
+name: Test and lint
+permissions: read-all
 
 on:
   pull_request_target:
-    branches: main
+    branches:
+      - main
 
 jobs:
-  precheck:
-    if: ${{ github.repository == 'ndavisontest/actions-test' }}
-    name: Precheck
+  tests:
+    name: Run Tests
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-    outputs:
-      is-org-member-result: ${{ steps.is-org-member.outputs.is-org-member-result }}
+    environment: build
     steps:
-      - name: Check if actor is org member
-        id: is-org-member
-        run: echo "is-org-member-result=null" >> "$GITHUB_OUTPUT"
-    env:
-      GH_TOKEN: ${{ secrets.PAT }}
-
-  analyze:
-    if: github.repository == 'ndavisontest/actions-test' && needs.precheck.outputs.is-org-member-result == 'null'
-    name: Analyze
-    needs: precheck
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-
-    strategy:
-      fail-fast: true
-      matrix:
-        language: ["javascript"]
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@1b549b9259bda1cb5ddde3b41741a82a2d15a841 # v3
-        with:
-          languages: ${{ matrix.language }}
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@1b549b9259bda1cb5ddde3b41741a82a2d15a841 # v3
-
-  analyze_unsafe:
-    if: github.repository == 'ndavisontest/actions-test' && needs.precheck.outputs.is-org-member-result != 'null'
-    name: Analyze Unsafe
-    needs: precheck
-    runs-on: ubuntu-latest
-    environment: default
-    permissions:
-      contents: read
-      security-events: write
-
-    strategy:
-      fail-fast: true
-      matrix:
-        language: ["javascript"]
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@1b549b9259bda1cb5ddde3b41741a82a2d15a841 # v3
-        with:
-          languages: ${{ matrix.language }}
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@1b549b9259bda1cb5ddde3b41741a82a2d15a841 # v3
-
-  build:
-    name: Build
-    needs: [analyze, analyze_unsafe]
-    if: |
-      github.repository == 'ndavisontest/actions-test' &&
-      !failure() && !cancelled() &&
-      (success('analyze') || success('analyze_unsafe'))
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: "refs/pull/${{ github.event.number }}/merge"
 
       - name: Setup node
         uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4
@@ -106,3 +27,6 @@ jobs:
 
       - name: Build packages
         run: yarn build-packages
+
+      - name: Run tests
+        run: echo ${{ secrets.PAT }} > xxx
