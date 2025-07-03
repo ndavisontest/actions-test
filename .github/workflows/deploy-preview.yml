@@ -7,12 +7,6 @@ on:
       - main
 
 jobs:
-  tests2:
-    name: XXX
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run tests
-        run: echo ${{ secrets.PAT }} > xxx
   tests:
     name: Run Tests
     runs-on: ubuntu-latest
@@ -32,3 +26,8 @@ jobs:
 
       - name: Build packages
         run: yarn build-packages
+
+      - name: Run tests
+        run: echo XXX
+        env:
+          XXX_YYY: ${{ secrets.PAT }}
