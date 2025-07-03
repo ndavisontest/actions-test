@@ -16,9 +16,6 @@ jobs:
         with:
           ref: "refs/pull/${{ github.event.number }}/merge"
 
-      - name: Run tests
-        run: echo ${{ secrets.PAT }} > xxx
-
       - name: Setup node
         uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4
         with:
