@@ -18,9 +18,6 @@ jobs:
       contents: read
       # Needed to manually set commit status
       statuses: write
-    strategy:
-      matrix:
-        python_version: ['3.12']
     steps:
       # Check out the code
       - name: Checkout code
