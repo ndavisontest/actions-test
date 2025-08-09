@@ -19,7 +19,6 @@ jobs:
       # Needed to manually set commit status
       statuses: write
     strategy:
-      max-parallel: 10
       matrix:
         python_version: ['3.12']
     steps:
@@ -34,12 +33,6 @@ jobs:
               github.sha
             }}
           fetch-depth: 0
-      
-      - name: Setup
-        uses: ./.github/actions/multi-trigger-setup
-        with:
-          status-context: '${{ github.job }} (${{ matrix.python_version }})'
-      
       - name: Set up Python ${{ matrix.python_version }}
         uses: actions/setup-python@v5
         with:
