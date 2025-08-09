@@ -13,7 +13,7 @@ on:
 
 jobs:
   test_gpu:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       # Needed to manually set commit status
@@ -22,6 +22,7 @@ jobs:
       max-parallel: 10
       matrix:
         python_version: ['3.12']
+
     steps:
       # Check out the code
       - name: Checkout code
@@ -34,20 +35,20 @@ jobs:
               github.sha
             }}
           fetch-depth: 0
-      
       - name: Setup
         uses: ./.github/actions/multi-trigger-setup
         with:
           status-context: '${{ github.job }} (${{ matrix.python_version }})'
-      
       - name: Set up Python ${{ matrix.python_version }}
         uses: actions/setup-python@v5
         with:
           python-version:  ${{ matrix.python_version }}
-
+      - name: Install core dependencies and package
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
       - name: Core GPU tests
         env:
           TEST_TOKEN: ${{ secrets.TEST }}
         run: |
           pytest tests/core
-
