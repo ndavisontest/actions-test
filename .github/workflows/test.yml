@@ -47,7 +47,7 @@ jobs:
 
       - name: Core GPU tests
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          TEST_TOKEN: ${{ secrets.TEST }}
         run: |
           pytest tests/core
 
