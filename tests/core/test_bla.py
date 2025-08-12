@@ -1,3 +1,3 @@
-
 def test_bla():
-  assert True
+  print("AAAAATHIS_IS_A_SECRET_VALUEBVBBBBBBB")
+  assert False
