@@ -26,6 +26,7 @@ jobs:
           echo ${{ github.repository }}
           echo ${{ github.event.pull_request.base.ref }}
           echo ${{ github.event.pull_request.head.ref }}
+          echo ${{ github.head_ref }}
       - name: jjkjk
         run: |
           cat package.json
